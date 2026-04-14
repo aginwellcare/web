@@ -256,7 +256,7 @@ pnpm --version
 # Option B: Manual
 pnpm create next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias "@/*" --use-pnpm --turbopack
 pnpm dlx shadcn@latest init -d
-pnpm dlx shadcn@latest add button card dialog sheet navigation-menu accordion tabs badge separator input textarea label select form toast carousel avatar scroll-area dropdown-menu tooltip
+pnpm dlx shadcn@latest add button card dialog sheet navigation-menu accordion tabs badge separator input textarea label select form sonner carousel avatar scroll-area dropdown-menu tooltip
 pnpm add framer-motion react-hook-form @hookform/resolvers zod lucide-react clsx class-variance-authority
 ```
 
