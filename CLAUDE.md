@@ -116,6 +116,12 @@ mobile/native skills, supply chain/DeFi/crypto domain skills, media generation,
 agent harness patterns, social distribution, operator workflows, document processing.
 If it's not in the table above, don't invoke it.
 
+## Deployment
+
+- **Remote:** `aginwellcare/web` on GitHub
+- **Push auth:** Use `$AGINWELLCARE_GH_TOKEN` env var (set in `~/.zshrc`). Never hardcode tokens.
+- **Push command:** `git remote set-url origin https://$AGINWELLCARE_GH_TOKEN@github.com/aginwellcare/web.git && git push`
+
 ## Code Conventions
 
 - `pnpm` only. No npm, no yarn.

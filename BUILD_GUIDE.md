@@ -337,7 +337,8 @@ REQUIREMENTS:
 - SEO: metadata, JSON-LD (Organization, LocalBusiness, FAQPage, BreadcrumbList)
 - Sitemap.ts + robots.ts
 - Scroll-triggered animations (staggered cards, stat counters, parallax hero)
-- Mobile-first responsive design
+- Mobile-first responsive design — every component must work on 320px+ screens
+- Mobile-friendly: test all pages on phone viewports (375px, 390px) via Chrome DevTools or real devices
 - WCAG AA accessibility
 
 DESIGN DIRECTION:
@@ -403,7 +404,7 @@ Generate a cohesive, non-generic design system **before writing any component co
 /ui-ux-pro-max
 
 Generate a complete design system for "AgingWellCare" — a premium home care agency
-website. Industry: healthcare / home care / elder care.
+website. Industry: home care / elder care.
 Target audience: adult children (40-65) making care decisions for aging parents.
 
 Design direction: Warm premium. Gold/cream warmth of TheKey.com combined with
@@ -479,7 +480,8 @@ Write tests for the AgingWellCare header component:
 - Shows navigation links (Services, About, Testimonials, Locations, Careers, Blog, Contact)
 - Shows phone number as clickable tel: link
 - Shows "Free Care Assessment" CTA button
-- Mobile: hamburger menu toggles Sheet overlay
+- Mobile: hamburger menu toggles Sheet overlay (test on 375px viewport)
+- Touch targets minimum 44x44px for mobile-friendly tap areas
 - Sticky behavior on scroll
 - Services dropdown shows sub-items on hover/click
 - All links have correct href values
@@ -497,18 +499,265 @@ REFACTOR: Clean up while tests stay green → commit: "refactor: clean up header
 
 Coverage gate: ECC targets **80%+ coverage** across branches, functions, lines, and statements.
 
-### Step 5.3 — Repeat for each feature
-
-Run `/tdd` for each component/page group before implementing it:
+### Step 5.3 — TDD for Footer
 
 ```
-/tdd Write tests for the homepage hero section: renders headline, subheadline, two CTA buttons, background image, parallax scroll effect
+/tdd
 
-/tdd Write tests for the stats counter component: renders 4 stat cards, animates numbers on scroll into view, displays correct values and labels
+Write tests for the AgingWellCare footer component:
+- Renders 4 columns: Company Info, Quick Links, Services, Contact
+- Company column: logo/name, brief description, phone, email
+- Quick Links column: main nav links with correct hrefs
+- Services column: links to all 5 service detail pages
+- Contact column: address, hours, phone
+- Social media icon links (Facebook, Instagram, LinkedIn)
+- Trust badges row (certification placeholders)
+- Bottom bar: copyright text with current year, privacy policy link, accessibility link
+- All links have correct href values
+- ARIA: nav role on footer navigation sections
+- Responsive: stacks to single column on mobile
+```
 
-/tdd Write tests for the contact form: validates required fields, shows error messages, submits successfully, shows success toast
+### Step 5.4 — TDD for Shared Components
 
-/tdd Write tests for the multi-step assessment form: navigates between 3 steps, validates each step, shows progress indicator, review step displays all entered data
+```
+/tdd
+
+Write tests for the AnimatedSection wrapper:
+- Renders children
+- Applies framer-motion whileInView animation
+- Accepts optional delay and className props
+- Respects reduced motion preference
+```
+
+```
+/tdd
+
+Write tests for the CTABanner shared component:
+- Renders heading text "Ready to Get Started?" (or custom)
+- Shows phone number as clickable tel: link
+- Shows "Free Care Assessment" link to /assessment
+- Accepts optional custom heading prop
+```
+
+### Step 5.5 — TDD for Homepage Sections
+
+```
+/tdd
+
+Write tests for the homepage hero section:
+- Renders headline "Compassionate Home Care That Feels Like Family"
+- Renders subheadline text
+- Shows two CTA buttons: "Schedule Free Assessment" (link to /assessment) + "Call (XXX) XXX-XXXX" (tel: link)
+- Hero section has proper heading hierarchy (h1)
+- Background image/overlay renders
+- CTAs have minimum 44x44px touch targets
+```
+
+```
+/tdd
+
+Write tests for the TrustBar component:
+- Renders trust signals (years in business, families served, caregiver count, rating)
+- Each trust item has an icon and label
+- Section has appropriate ARIA labeling
+```
+
+```
+/tdd
+
+Write tests for the ServicesPreview component:
+- Renders section heading
+- Shows 5 service cards with icon, title, description
+- Each card links to correct /services/[slug] page
+- Cards have correct href values from constants
+```
+
+```
+/tdd
+
+Write tests for the WhyChooseUs component:
+- Renders section heading
+- Shows 4 differentiators with icons and descriptions
+- Differentiators: Vetted Caregivers, Personalized Plans, 24/7 Availability, Licensed & Insured
+```
+
+```
+/tdd
+
+Write tests for the StatsCounter component:
+- Renders 4 stat items with labels
+- Displays target numbers (e.g., "15+ Years", "5,000+ Families", "98% Satisfaction", "500+ Caregivers")
+- Counter animation triggers (useInView returns true)
+- Labels are descriptive and accessible
+```
+
+```
+/tdd
+
+Write tests for the TestimonialsCarousel component:
+- Renders testimonial cards with quote, name, relationship, star rating
+- Previous/Next navigation buttons exist and are accessible
+- Auto-play pause button exists
+- Cards display correct content from data
+```
+
+```
+/tdd
+
+Write tests for the HowItWorks component:
+- Renders 3 steps: "Contact Us", "Care Assessment", "Begin Care"
+- Each step has a number, icon, title, and description
+- Steps are in correct order
+- Proper heading hierarchy
+```
+
+### Step 5.6 — TDD for Services Pages
+
+```
+/tdd
+
+Write tests for the services overview page:
+- Renders page heading and intro text
+- Shows 5 service cards linking to detail pages
+- Each card has title, description, and "Learn More" link
+- Page has correct metadata title
+- CTABanner renders at bottom
+```
+
+```
+/tdd
+
+Write tests for the service detail page ([slug]):
+- Renders service title as h1
+- Shows detailed description
+- Shows features/benefits list
+- Shows "Who is this for?" section
+- Shows related services links
+- Shows CTA with service name
+- Generates correct metadata per service
+- Returns 404 for invalid slugs
+```
+
+### Step 5.7 — TDD for Contact & Assessment Forms
+
+```
+/tdd
+
+Write tests for the contact form:
+- Renders all fields: name, email, phone, service interest (select), message
+- Validates required fields (name, email, phone)
+- Shows inline error messages for invalid fields
+- Email field validates format
+- Phone field validates format
+- Submit button exists and is accessible
+- Shows success toast on valid submission
+- Loading state on submit button during submission
+- Form labels are persistent (not placeholder-only)
+- aria-describedby links errors to inputs
+```
+
+```
+/tdd
+
+Write tests for the multi-step assessment form:
+- Step 1: Care recipient info (name, age, relationship) — validates before advancing
+- Step 2: Care needs checkboxes — at least one must be selected
+- Step 3: Schedule preferences (frequency, preferred times, start date)
+- Step 4: Contact info (name, phone, email, preferred contact method)
+- Step 5: Review shows all entered data with edit buttons
+- Progress indicator shows current step (Step X of 5)
+- Previous/Next buttons navigate between steps
+- Cannot advance past a step with validation errors
+- Can go back without losing data
+- Edit button on review step returns to correct step with data preserved
+- Submit shows success state
+- Focus moves to step heading on each transition
+- Keyboard: Enter advances (when valid)
+```
+
+### Step 5.8 — TDD for About Page
+
+```
+/tdd
+
+Write tests for the About page:
+- Renders company story section with heading
+- Shows mission & values cards (3-4 values with icons)
+- Team showcase: grid of team member cards with name, role
+- Company timeline: milestones in correct order
+- Awards/certifications section renders
+- CTABanner at bottom
+- Page has correct metadata
+```
+
+### Step 5.9 — TDD for Remaining Pages
+
+```
+/tdd
+
+Write tests for the Testimonials page:
+- Renders grid of testimonial cards
+- Each card shows quote, name, relationship, star rating, service used
+- Filter tabs for service types work (clicking filter shows matching testimonials)
+- Page has correct metadata
+```
+
+```
+/tdd
+
+Write tests for the FAQ page:
+- Renders FAQ categories (General, Services, Pricing, Getting Started)
+- Category tabs/sections switch correctly
+- Accordion items open/close on click
+- Only one accordion item open at a time (type="single")
+- Questions and answers render correct content
+- FAQPage JSON-LD script tag is present in the page
+- Page has correct metadata
+```
+
+```
+/tdd
+
+Write tests for the Careers page:
+- Renders "Join Our Team" heading
+- Shows benefits grid with icons and descriptions
+- Current openings section with title, location, type for each
+- "Apply" links/buttons exist for each opening
+- Page has correct metadata
+```
+
+```
+/tdd
+
+Write tests for the Blog listing page:
+- Renders grid of blog post cards
+- Each card shows title, excerpt, date, category badge
+- "Read More" links point to /blog/[slug]
+- Page has correct metadata
+```
+
+```
+/tdd
+
+Write tests for the Blog detail page ([slug]):
+- Renders post title as h1
+- Shows date, author, category badge
+- Renders content body with proper prose styling
+- Related posts section at bottom
+- CTABanner renders
+- Generates correct metadata per post
+- Returns 404 for invalid slugs
+```
+
+```
+/tdd
+
+Write tests for the Locations page:
+- Renders service area heading and description
+- Shows list/grid of service areas
+- "Call us" CTA for unlisted areas
+- Page has correct metadata
 ```
 
 ---
@@ -652,6 +901,7 @@ Review all changes since the last review. Check:
 - Code quality and TypeScript correctness
 - Component composition and reusability
 - Accessibility (WCAG AA compliance)
+- Mobile-friendly: responsive layouts, touch targets (44x44px), no horizontal scroll on 375px
 - Performance (unnecessary re-renders, bundle size)
 - Design system adherence
 - Security (form handling, user input)
@@ -692,8 +942,9 @@ Run ECC's 6-phase verification sweep after each major milestone.
 2. **Type checking** — `tsc --noEmit` passes
 3. **Linting** — ESLint clean
 4. **Test suite** — All tests pass with coverage report
-5. **Security scanning** — No vulnerabilities
-6. **Diff review** — Final check of all changes
+5. **Mobile-friendly check** — No horizontal overflow at 375px, touch targets 44x44px+, text readable without zoom
+6. **Security scanning** — No vulnerabilities
+7. **Diff review** — Final check of all changes
 
 ---
 
@@ -781,13 +1032,15 @@ vercel --prod
 
 - [ ] All pages load on production URL
 - [ ] Contact form works (or shows appropriate message)
-- [ ] Phone numbers clickable on mobile
+- [ ] Phone numbers clickable on mobile (tel: links)
+- [ ] Mobile-friendly: no horizontal scroll, readable text without zoom, tap targets 44x44px+
+- [ ] Test on real devices: iPhone Safari, Android Chrome, iPad — not just DevTools
+- [ ] Google Mobile-Friendly Test passes (search.google.com/test/mobile-friendly)
 - [ ] SSL certificate active
 - [ ] Google Search Console — submit sitemap
 - [ ] Google Business Profile — update URL
 - [ ] Social media — update links
 - [ ] Vercel Analytics enabled
-- [ ] Test on real devices: iPhone, Android, iPad, desktop
 
 ---
 
