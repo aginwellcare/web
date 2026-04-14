@@ -143,81 +143,111 @@ Adult children (ages 40-65) making care decisions for aging parents. Secondary: 
 
 ## 5. Phase 1 — Setup
 
-### Step 1.1 — Install ECC Plugin (TypeScript profile — NOT full)
+### Step 1.1 — Install ECC
 
-> **Important:** ECC ships 47 agents, 183 skills, and 40+ hooks. Installing the full
-> profile loads everything (Go, Rust, Python, Django, Laravel, etc.) which slows down
-> Claude Code and clutters context. Install only what this project needs.
+> ECC ships 47 agents, 183 skills, and 40+ hooks. The `/plugin` system installs
+> everything — there is no profile selector at install time. Instead, we scope what
+> gets used via `CLAUDE.md` (see project root). Unused skills don't consume tokens
+> until invoked, so the main concern is hooks and rules, not the skill list.
 
 ```bash
-# Start Claude Code
+# Option A — Plugin system (recommended)
+/plugin marketplace add everything-claude-code
+/plugin install everything-claude-code
+
+# Option B — Manual clone
+git clone https://github.com/affaan-m/everything-claude-code.git ~/.claude/plugins/cache/everything-claude-code
+cd ~/.claude/plugins/cache/everything-claude-code && ./install.sh --target claude --profile core
+```
+
+#### Why `core` and not `developer` or `full`?
+
+| Profile | What it installs | Right for this project? |
+|---------|-----------------|------------------------|
+| `core` | Common rules, all agents, quality hooks, workflow skills | **Yes — use this** |
+| `developer` | Core + 52 framework skills across ALL languages | No — pulls in Go, Rust, Python, etc. |
+| `security` | Core + security-focused skills | No — overkill for a marketing site |
+| `full` | All 19 modules, every skill | No — massive context bloat |
+
+The `core` profile gives you everything this project needs:
+- **Rules:** coding-style, security, testing, git-workflow (TypeScript + Web)
+- **Agents:** All 47 (lightweight — they only activate when called via `/command`)
+- **Hooks:** Quality gates, design drift detection, commit validation, format+typecheck
+- **Skills:** TDD, verification, continuous learning, coding standards
+
+#### What this project uses vs. what ECC offers
+
+**Agents relevant to this project (8 of 47):**
+
+| Agent | Why we need it |
+|-------|---------------|
+| `planner` | Decompose pages/features into phased steps |
+| `code-reviewer` | Quality checks on every PR |
+| `typescript-reviewer` | TS-specific review (auto-triggers) |
+| `security-reviewer` | XSS, input validation on contact/assessment forms |
+| `seo-specialist` | Critical for a marketing site targeting search traffic |
+| `a11y-architect` | WCAG AA — essential for elderly care audience |
+| `performance-optimizer` | Core Web Vitals matter for SEO and UX |
+| `refactor-cleaner` | Dead code cleanup post-feature |
+
+**Agents NOT needed (skip — they won't activate without matching code):**
+- All non-TS language reviewers (Go, Python, Rust, C++, Java, Kotlin, Swift, Dart, C#, Perl, PHP)
+- `database-reviewer`, `pytorch-build-resolver`, `healthcare-reviewer`
+- `gan-*` agents, `chief-of-staff`, `opensource-*` agents
+
+**Skills relevant to this project (~15 of 183):**
+`frontend-design`, `frontend-patterns`, `design-system`, `tdd-workflow`, `seo`,
+`accessibility`, `security-review`, `verification-loop`, `git-workflow`,
+`coding-standards`, `search-first`, `browser-qa`, `deployment-patterns`,
+`e2e-testing`, `continuous-learning-v2`
+
+**Skill categories NOT needed (the other 80%):**
+- All backend frameworks (Django, Laravel, Spring Boot, NestJS, Perl, PHP)
+- Database skills (postgres-patterns, jpa-patterns, clickhouse, migrations)
+- Mobile/native (Swift, Dart/Flutter, Android, Compose)
+- Domain-specific (supply chain, healthcare compliance, DeFi/crypto, customs)
+- Media generation (video creation, manim, fal-ai)
+- Agent harness / GAN / autonomous loop patterns
+- Social distribution, operator workflows, document processing
+
+> **Note:** Unused agents and skills don't consume tokens when idle — they only load
+> into context when you invoke their `/command`. The `core` profile avoids installing
+> unused *rules* and *hooks*, which DO run automatically and would add overhead.
+
+### Step 1.2 — Install UI/UX Pro Max Skill
+
+> **Note:** UI/UX Pro Max is a separate skill, not part of ECC. It also does not use
+> the `/plugin` system. Check the skill's repo for current install instructions.
+
+```bash
+# Check the repo for manual install steps:
+# https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
+# Typical pattern: clone into ~/.claude/skills/ and follow its README
+```
+
+### Step 1.3 — Verify Installation
+
+```bash
+# Verify ECC plugin is in place (marketplace installs to plugins/cache/)
+ls ~/.claude/plugins/cache/everything-claude-code/
+
+# Verify skills are loaded — start Claude Code and check the skill list
 claude
-
-# Inside Claude Code — install with TypeScript profile:
-/plugin marketplace add https://github.com/affaan-m/everything-claude-code
-/plugin install ecc@ecc
-
-# If using manual/OSS install, use the typescript profile:
-# cd ~/.claude/plugins/ecc && ./install.sh --profile typescript
+# Then try: /plan "test" — should activate the planner agent
+# ECC hooks are provided by the plugin system, not via settings.json entries
 ```
 
-### Step 1.2 — Configure ECC for this project
-
-After installing, cherry-pick only the agents and skills needed:
-
-```
-/configure-ecc
-
-This is a Next.js 15 / TypeScript / React frontend project. Configure ECC to enable
-only what's relevant:
-
-AGENTS TO ENABLE:
-- planner (feature decomposition)
-- architect (design decisions)
-- tdd-guide (red-green-refactor)
-- code-reviewer (quality review)
-- typescript-reviewer (TS-specific review)
-- security-reviewer (form/input security)
-- build-error-resolver (fix build failures)
-- doc-updater (documentation sync)
-
-AGENTS TO DISABLE:
-- All Go, Python, Rust, C++, Java, Kotlin, Perl, PHP, Swift reviewers/resolvers
-- database-reviewer, pytorch-build-resolver
-
-SKILLS TO ENABLE:
-- frontend-design, design-system, frontend-patterns
-- tdd-workflow, e2e-testing
-- coding-standards, search-first
-- verification-loop, security-review
-- continuous-learning-v2, configure-ecc
-
-SKILLS TO DISABLE:
-- All Django, Spring Boot, Laravel, NestJS, Go, Perl, Swift, Rust, C++ skills
-- database-migrations, postgres-patterns, jpa-patterns
-- All blockchain/crypto security checks
-
-Set hook profile to standard.
-```
-
-### Step 1.3 — Install UI/UX Pro Max Skill
+### Step 1.4 — Install pnpm
 
 ```bash
-# Inside Claude Code:
-/plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill
-/plugin install ui-ux-pro-max@ui-ux-pro-max-skill
+# Install pnpm globally (corepack on Node <22.12 has signature verification bugs)
+npm install -g pnpm
+
+# Verify
+pnpm --version
 ```
 
-### Step 1.4 — Verify
-
-```
-/skills list
-# Should see: frontend-design, design-system, frontend-patterns,
-# tdd-workflow, coding-standards, ui-ux-pro-max, etc.
-# Should NOT see: django-*, springboot-*, laravel-*, golang-*, rust-*, etc.
-```
-
-### Step 1.4 — Scaffold the Project
+### Step 1.5 — Scaffold the Project (unchanged)
 
 ```bash
 # Option A: Automated (run the install script)
@@ -230,7 +260,7 @@ pnpm dlx shadcn@latest add button card dialog sheet navigation-menu accordion ta
 pnpm add framer-motion react-hook-form @hookform/resolvers zod lucide-react clsx class-variance-authority
 ```
 
-### Step 1.5 — Configure ECC Hook Profile
+### Step 1.6 — Configure ECC Hook Profile
 
 ```bash
 # In your shell profile (.zshrc or .bashrc), set the hook strictness:
@@ -241,7 +271,7 @@ export ECC_HOOK_PROFILE=standard  # Options: minimal | standard | strict
 - **standard** — Recommended. Quality gates + design drift detection + commit quality
 - **strict** — All hooks active including gateguard (must read before edit)
 
-### Step 1.6 — Commit & Push
+### Step 1.7 — Commit & Push
 
 ```bash
 git add -A
@@ -1159,4 +1189,4 @@ Here's the full ECC cycle for building a single feature (e.g., the homepage hero
 
 ---
 
-**You're ready to build.** Start Claude Code (`claude`), install the plugins (Phase 1), then follow the lifecycle: Research → Plan → Design → TDD → Implement → Review → Verify → Deploy.
+**You're ready to build.** Start Claude Code (`claude`), install ECC via `git clone` + `install.sh --profile core` (Phase 1), then follow the lifecycle: Research → Plan → Design → TDD → Implement → Review → Verify → Deploy.
