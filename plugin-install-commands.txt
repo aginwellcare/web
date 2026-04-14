@@ -5,26 +5,61 @@
 # ============================================================================
 
 # Step 1: Install Everything Claude Code (ECC) plugin
-# This gives you: frontend-design, design-system, frontend-patterns, and 180+ other skills
+# IMPORTANT: Use TypeScript profile, NOT full. Full loads 47 agents + 183 skills
+# for every language (Go, Rust, Python, Django, etc.) which clutters context.
 /plugin marketplace add https://github.com/affaan-m/everything-claude-code
 /plugin install ecc@ecc
 
-# Step 2: Install UI/UX Pro Max skill
-# This gives you: 67 UI styles, 161 color palettes, 57 font pairings, industry-specific design rules
+# If using manual/OSS install instead:
+# git clone https://github.com/affaan-m/everything-claude-code.git ~/.claude/plugins/ecc
+# cd ~/.claude/plugins/ecc && npm install && ./install.sh --profile typescript
+
+# Step 2: Configure ECC — enable only what this project needs
+/configure-ecc
+
+# When prompted, paste this configuration:
+#
+# AGENTS TO ENABLE:
+# - planner, architect, tdd-guide, code-reviewer, typescript-reviewer,
+#   security-reviewer, build-error-resolver, doc-updater
+#
+# AGENTS TO DISABLE:
+# - All Go, Python, Rust, C++, Java, Kotlin, Perl, PHP, Swift agents
+# - database-reviewer, pytorch-build-resolver
+#
+# SKILLS TO ENABLE:
+# - frontend-design, design-system, frontend-patterns
+# - tdd-workflow, e2e-testing, coding-standards, search-first
+# - verification-loop, security-review
+# - continuous-learning-v2, configure-ecc
+#
+# SKILLS TO DISABLE:
+# - All Django, Spring Boot, Laravel, NestJS, Go, Perl, Swift, Rust, C++ skills
+#
+# HOOK PROFILE: standard
+
+# Step 3: Install UI/UX Pro Max skill (separate plugin)
+# This gives you: 67 UI styles, 161 color palettes, 57 font pairings,
+# industry-specific design rules for healthcare
 /plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill
 /plugin install ui-ux-pro-max@ui-ux-pro-max-skill
 
-# Step 3: Verify both plugins are installed
+# Step 4: Verify
 /skills list
 
-# You should see these skills available:
+# You SHOULD see:
 # - frontend-design (from ECC) — design philosophy and anti-pattern detection
 # - design-system (from ECC) — generate/audit visual systems, AI slop detection
 # - frontend-patterns (from ECC) — React/Next.js best practices
+# - tdd-workflow (from ECC) — test-driven development
+# - coding-standards (from ECC) — code quality rules
 # - ui-ux-pro-max (from UI/UX Pro Max) — data-driven design system generator
 
+# You should NOT see:
+# - django-*, springboot-*, laravel-*, golang-*, rust-*, cpp-*, perl-*, swift-*
+
 # ============================================================================
-# Step 4: Generate the design system (run this after project scaffolding)
+# Step 5: Generate the design system (run after project scaffolding)
 # ============================================================================
 
 # Generate a tailored design system for AgingWellCare:

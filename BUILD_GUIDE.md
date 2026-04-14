@@ -143,18 +143,64 @@ Adult children (ages 40-65) making care decisions for aging parents. Secondary: 
 
 ## 5. Phase 1 — Setup
 
-### Step 1.1 — Install ECC Plugin
+### Step 1.1 — Install ECC Plugin (TypeScript profile — NOT full)
+
+> **Important:** ECC ships 47 agents, 183 skills, and 40+ hooks. Installing the full
+> profile loads everything (Go, Rust, Python, Django, Laravel, etc.) which slows down
+> Claude Code and clutters context. Install only what this project needs.
 
 ```bash
 # Start Claude Code
 claude
 
-# Inside Claude Code:
+# Inside Claude Code — install with TypeScript profile:
 /plugin marketplace add https://github.com/affaan-m/everything-claude-code
 /plugin install ecc@ecc
+
+# If using manual/OSS install, use the typescript profile:
+# cd ~/.claude/plugins/ecc && ./install.sh --profile typescript
 ```
 
-### Step 1.2 — Install UI/UX Pro Max Skill
+### Step 1.2 — Configure ECC for this project
+
+After installing, cherry-pick only the agents and skills needed:
+
+```
+/configure-ecc
+
+This is a Next.js 15 / TypeScript / React frontend project. Configure ECC to enable
+only what's relevant:
+
+AGENTS TO ENABLE:
+- planner (feature decomposition)
+- architect (design decisions)
+- tdd-guide (red-green-refactor)
+- code-reviewer (quality review)
+- typescript-reviewer (TS-specific review)
+- security-reviewer (form/input security)
+- build-error-resolver (fix build failures)
+- doc-updater (documentation sync)
+
+AGENTS TO DISABLE:
+- All Go, Python, Rust, C++, Java, Kotlin, Perl, PHP, Swift reviewers/resolvers
+- database-reviewer, pytorch-build-resolver
+
+SKILLS TO ENABLE:
+- frontend-design, design-system, frontend-patterns
+- tdd-workflow, e2e-testing
+- coding-standards, search-first
+- verification-loop, security-review
+- continuous-learning-v2, configure-ecc
+
+SKILLS TO DISABLE:
+- All Django, Spring Boot, Laravel, NestJS, Go, Perl, Swift, Rust, C++ skills
+- database-migrations, postgres-patterns, jpa-patterns
+- All blockchain/crypto security checks
+
+Set hook profile to standard.
+```
+
+### Step 1.3 — Install UI/UX Pro Max Skill
 
 ```bash
 # Inside Claude Code:
@@ -162,12 +208,13 @@ claude
 /plugin install ui-ux-pro-max@ui-ux-pro-max-skill
 ```
 
-### Step 1.3 — Verify
+### Step 1.4 — Verify
 
 ```
 /skills list
 # Should see: frontend-design, design-system, frontend-patterns,
 # tdd-workflow, coding-standards, ui-ux-pro-max, etc.
+# Should NOT see: django-*, springboot-*, laravel-*, golang-*, rust-*, etc.
 ```
 
 ### Step 1.4 — Scaffold the Project
