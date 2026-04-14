@@ -470,16 +470,50 @@ Footer:
 ```
 Build the AgingWellCare homepage sections in order. Tests exist — make them pass.
 Follow the design system tokens. Use Framer Motion for scroll animations.
+Reference: See "Inspiration Deep Dive" appendix for specific patterns from each site.
 
-1. HERO — Full-width warm photo background, headline "Compassionate Home Care That
-   Feels Like Family", two CTAs, subtle parallax
-2. TRUST BAR — Certification logos, social proof line
-3. SERVICES PREVIEW — 4-6 cards in asymmetric grid (NOT boring 3-column), staggered reveal
-4. WHY CHOOSE US — Split layout (image + content), 4 differentiators with icons
-5. STATS COUNTER — Dark section, animated count-up numbers on scroll
-6. TESTIMONIALS — Carousel with quotes, names, ratings, auto-play
-7. HOW IT WORKS — 3-step visual process connected by path graphic
-8. CTA BANNER — Full-width warm gradient, phone + assessment button
+1. HERO — Full-width warm photo background with CSS Ken Burns effect (slow zoom
+   1.0x→1.1x over 20s, infinite alternate — like TheKey). Semi-transparent dark
+   overlay. Headline "Compassionate Home Care That Feels Like Family". Content
+   fades up with staggered children (0.6s total). Two CTAs: "Schedule Free
+   Assessment" (primary, purple #42273b) + "Call (XXX) XXX-XXXX" (secondary).
+   Subtle scroll parallax on background only (useScroll + useTransform, 50% rate).
+
+2. TRUST BAR — Certification logos on muted background. Simple fade-in on view (0.3s).
+   Social proof line: "Trusted by 500+ families". Inspired by Adult Care Assistance's
+   massive badge collection.
+
+3. SERVICES PREVIEW — 4-6 cards in asymmetric grid (NOT boring 3-column equal grid).
+   Staggered fade-up on scroll (0.1s stagger between cards — like TheKey). Each card
+   has hover zoom effect (scale 1.05x + shadow increase, 0.2s — like TheKey's service
+   cards). Icon, title, 2-line description, "Learn More" link.
+
+4. WHY CHOOSE US — Split layout (image left with Ken Burns, content right).
+   4 differentiators stagger in from left (0.8s total). Icons: Vetted Caregivers,
+   Personalized Plans, 24/7 Availability, Locally Owned. Inspired by Adult Care
+   Assistance's "Why Choose Us" six differentiators section.
+
+5. STATS COUNTER — Dark teal/green background (#07272d like TheKey) for contrast.
+   Odometer-style rolling digit counters triggered on scroll into view (useInView,
+   2s duration, run once). NOT just incrementing numbers — digits should roll/flip
+   like a mechanical counter. This is the single most impactful animation on the page.
+6. TESTIMONIALS — Carousel using Embla Carousel + Framer Motion. Custom circle
+   pagination (animated fill, not plain dots — like TheKey's Flickity carousel).
+   Auto-play every 5s with pause on hover. Slide + fade transition (0.4s).
+   Each card: quote, name, relationship ("Daughter of client"), star rating.
+   Warm cream background (#f6f4ea). Consider placeholder structure for future
+   video testimonials (like Griswold's Wistia embeds).
+
+7. HOW IT WORKS — 3-step visual process: Free Consultation → Custom Care Plan →
+   Meet Your Caregiver. Connected by an SVG path/line graphic. Steps reveal
+   sequentially along the path as section scrolls into view (1.2s total).
+   Each step: numbered circle, icon, title, brief description.
+
+8. CTA BANNER — Full-width warm gradient (gold/cream). Subtle scroll parallax on
+   background (same technique as hero, 50% rate). "Ready to discuss care for your
+   loved one?" Phone number (clickable) + "Schedule Free Assessment" button.
+   Repeating the CTA reduces friction (inspired by Griswold showing location
+   finder twice on page).
 ```
 
 ### Step 6.3 — Services Pages
@@ -770,6 +804,280 @@ src/
 **Services:** Personal Care (ADLs), Companion Care, Live-In/24-Hour Care, Respite Care, Specialized Care (Alzheimer's, Parkinson's, post-surgery), Veteran Care
 
 **Design Patterns:** Always-visible phone number, animated stat counters, multi-step assessment forms, trust badge rows, founder story, 3-step "How It Works" process
+
+---
+
+### Inspiration Deep Dive — Component-Level Design Patterns
+
+This appendix contains **specific, actionable** design and motion patterns extracted from each inspiration site. Use these details in your Claude Code prompts during implementation to produce precise, non-generic results.
+
+---
+
+#### Site 1: Adult Care Assistance (adultcareassistance.com)
+
+**Overall approach:** Content-dense, trust-heavy, minimal motion. The site wins through sheer volume of social proof rather than flashy animation.
+
+**Navigation:**
+- Top-level: Senior Home Care, Locations, About Us, Careers, Blog, Phone number
+- Extensive dropdowns — Services has 8 sub-items (Home Care, Veteran Home Care, 24-Hour Live-In, Free Senior Services, Free Assessment, Senior Care Options, Safety Tips, Pricing)
+- Locations dropdown lists 4 Arizona cities
+- About Us dropdown: Why We Care, History, Trust Our Team, Our Standards, Testimonials, FAQs
+
+**Hero:**
+- Headline: "Be Independent, Without Being Alone"
+- Sub-headline: "Live In Your Home | Eliminate Worry | Confident In Your Care"
+- Single CTA: "Contact Us"
+- Clean, professional, photography-based — no parallax or complex motion
+
+**Homepage Section Flow (8 sections):**
+1. Home Care — 24-hour live-in assistance overview
+2. Senior Care — Award-winning caregivers, independence emphasis
+3. Caregiver — Quality, training, background checks
+4. Company Overview — Owner Krystal Wilkinson featured, "24-Hour Caregiving Services Since 1996"
+5. Home Care for Seniors in Arizona — Service area overview
+6. Client & Caregiver Testimonials — 25+ five-star text reviews
+7. Why Choose Adultcare Assistance? — Six differentiators
+8. Contact/Consultation — "Talk to Our Team" with free assessment offer
+
+**Color Palette:**
+- Primary: White (#ffffff), Dark Gray (#434549)
+- Accents: Green (#65bd7d), Blue (#4f81bc), Dark Teal (#005a87), Gold (#fcb900)
+- Buttons: Dark gray (#32373c) with white text
+
+**Trust Signals (massive collection):**
+- "Voted Best of Arizona for 13 Years"
+- Best of Home Care Leader in Excellence
+- Employer of Choice award
+- Provider of Choice award
+- Caring Star 2024
+- A+ BBB rating
+- Highlights Arizona's lack of home care licensing as a differentiator for their voluntary standards
+
+**Unique Elements:**
+- Owner/founder prominently featured with personal story (builds personal connection)
+- Emphasizes locally owned, non-franchise status
+- 25+ testimonials with 5-star ratings displayed inline (not in a carousel — raw volume)
+- Three phone numbers visible throughout
+
+**What to steal for AgingWellCare:**
+- The sheer volume of trust badges/awards displayed prominently
+- Founder story with photo for personal connection
+- "Free Senior Services" as a differentiator page
+- The 8-section homepage flow that builds trust progressively
+- Six differentiators section with clear why-choose-us messaging
+
+---
+
+#### Site 2: Griswold Home Care (griswoldcare.com)
+
+**Overall approach:** Clean, warm, streamlined. Less content-dense than Adult Care Assistance, more approachable. Community-focused with a philanthropic angle.
+
+**Navigation:**
+- Minimal top-level: Who is Griswold (dropdown), Care Services, Be a Caregiver, Blog, Find your Local Griswold
+- Secondary: Own a Franchise, Jean Griswold Foundation
+- Much simpler/cleaner nav than the other two
+
+**Hero:**
+- Headline: "Live Assured with In-Home Care"
+- Sub-headline: "Stay home where you belong, with compassionate care by Griswold."
+- Primary CTA: **Zip code search field** with "Find care" button (not just a contact button)
+- Background: Kitchen scene with caregiver in blue scrubs — warm, domestic setting
+
+**Homepage Section Flow (6 sections):**
+1. Why Griswold? — 40+ years experience, Care Professionals emphasis
+2. At Griswold, Care is Personal — Three service pillars with descriptions
+3. Griswold In Your Community — Regional office carousel (8 locations with event photos)
+4. Hear for Yourself — **Video testimonial slider** (4 Wistia-embedded interviews)
+5. Award-winning Home Care — Activated Insights endorsement
+6. Supporting Caregivers Everywhere — Jean Griswold Foundation scholarship program
+
+**Color Palette:**
+- Primary: Teal/Blue-green (#82b8b2)
+- White backgrounds
+- Dark gray/charcoal for buttons and text
+- Red accents in community photos
+
+**Motion & Interaction:**
+- Location finder appears **twice** on the page (top hero + bottom) — reduces friction
+- Community event photography carousel for regional offices
+- Video testimonials are the star interaction — Wistia embeds with custom styling
+- Overall motion is restrained and purposeful
+
+**Unique Elements:**
+- **Video testimonials** — the only site of the three using video on homepage
+- **Jean Griswold Foundation** — charitable/scholarship arm adds trust and warmth
+- **Zip code search** as primary CTA (not just "contact us")
+- Community event photos showing real local engagement
+- Franchise model openly referenced (transparency)
+
+**Footer:**
+- Phone: 1.800.GRISWOLD (vanity number)
+- Social: Facebook, LinkedIn, YouTube, Instagram
+- State-specific service model disclaimer
+
+**What to steal for AgingWellCare:**
+- Video testimonials (even placeholder structure for future video content)
+- Zip code / location finder as a primary interaction pattern
+- The warm, domestic photography style (kitchen scenes, living rooms — not clinical)
+- Foundation/community giving section for trust building
+- Simpler, cleaner navigation structure
+- Location finder repeated at top and bottom to reduce friction
+- Three service pillars layout (Personal Care, Companionship, Homemaking)
+
+---
+
+#### Site 3: TheKey (thekey.com) — THE PARALLAX / MOTION REFERENCE
+
+**Overall approach:** Premium, corporate, tech-forward. The most polished and animation-rich of the three. Gold/cream palette signals luxury. This is your primary motion/parallax reference.
+
+**Navigation:**
+- Top-level: Services, Locations, Learning Center, About Us, Careers
+- "Find Care" dropdown with zip code search
+- Header shows phone (866) 475-4967 and email
+- Social links in header (Instagram, Facebook, LinkedIn)
+
+**Hero:**
+- Emphasizes "largest, and most trusted, in-home care provider"
+- **Rotating SVG hero icons** — animated cycling through care theme concepts (NOT a traditional parallax image scroll, but motion-graphics-style icon rotation that gives the hero a dynamic, living feel)
+- CTAs: Primary action button + "Find Your Local Office"
+- Full-width layout with semi-transparent dark overlay on photography
+
+**Homepage Section Flow (10 sections — most complex):**
+1. Hero with rotating benefit SVG icons
+2. **Animated statistics section** — Number counters on dark green background using odometer.js
+3. Services overview — 4-column grid with **hover zoom effects** on cards
+4. Blog/content carousel — Auto-scrolling article previews
+5. Leadership/team showcase with logo carousel
+6. Testimonials carousel — **Flickity-powered** with animated circle pagination dots
+7. Trust associations and certifications gallery
+8. Mobile app promotion — App Store + Google Play badges
+9. Care assessment CTA — Full-width with form
+10. FAQ accordion section
+
+**Color Palette (the premium reference):**
+- Primary gold/khaki: #d0b787, #ceb888 — luxury signaling
+- Secondary dark teal/green: #07272d, #00293a — depth and authority
+- Accent blue: #276fc4 — links and interactive elements
+- Text: Dark brown #4b4545 — softer than pure black
+- Backgrounds: Cream/tan #f6f4ea, Mint green #e5f6f1 — warm alternating sections
+- Primary CTA buttons: Purple #42273b — distinctive, not generic blue
+
+**Motion & Parallax Patterns (DETAILED):**
+
+1. **Rotating SVG Hero Icons**
+   - SVG icons cycle through care benefit concepts (heart, home, shield, etc.)
+   - Smooth rotation/fade transition between icons
+   - Creates a "living" hero without traditional image parallax
+   - Implementation: Framer Motion `AnimatePresence` with `rotate` + `opacity` variants
+
+2. **Odometer-Style Stat Counters**
+   - Numbers roll up like an odometer when section scrolls into view
+   - Dark green/teal background section creates visual contrast
+   - Stats: years of experience, families served, satisfaction %, caregiver count
+   - Implementation: Framer Motion `useInView` + `animate` with `duration: 2s` easing
+   - The digit-rolling effect (not just a number increment) is what makes it premium
+
+3. **Service Card Hover Zoom**
+   - 4-column grid of service cards
+   - On hover: image scales up slightly (1.05x) with smooth transition
+   - Card lifts with subtle shadow increase
+   - Implementation: Framer Motion `whileHover={{ scale: 1.05 }}` + CSS shadow transition
+
+4. **Flickity Testimonial Carousel**
+   - Custom circle pagination (not dots — animated circle fills)
+   - Smooth slide transitions with momentum scrolling
+   - Auto-play with pause on hover
+   - Implementation: Embla Carousel (modern Flickity alternative) + Framer Motion
+
+5. **Staggered Section Reveals**
+   - Sections fade in + slide up as they enter viewport
+   - Child elements stagger (first card, then second, then third...)
+   - Implementation: Framer Motion `staggerChildren: 0.1` in parent variants
+
+6. **Ken Burns on Photography**
+   - Hero and section background images have slow zoom (not scroll-based parallax)
+   - 15-20 second cycle: slow zoom in from 1.0x to 1.1x, then reset
+   - Creates visual life without traditional scroll parallax
+   - Implementation: CSS `@keyframes kenBurns { from { transform: scale(1) } to { transform: scale(1.1) } }` with `animation: kenBurns 20s ease-in-out infinite alternate`
+
+7. **Scroll-Triggered Parallax Layers**
+   - Background images scroll at ~50% of content scroll speed
+   - Creates depth without being disorienting
+   - Only on hero and CTA banner sections (not everywhere)
+   - Implementation: Framer Motion `useScroll` + `useTransform` to translate Y at reduced rate
+
+**Interactive Features:**
+- **Salesforce Einstein chatbot** — embedded with custom avatar and greeting, activates after delay
+- **Interactive US/Canada map** — clickable states/provinces for location finding
+- **Multi-step care assessment forms** — progress indicators with breadcrumb navigation
+- **Off-hours inquiry form** — auto-activates when offices are closed (time-aware UX)
+- **Mobile app** with App Store and Google Play links
+
+**What to steal for AgingWellCare:**
+
+| Pattern | Priority | Implementation Notes |
+|---------|----------|---------------------|
+| Odometer stat counters | **HIGH** | Most impactful single animation. Use Framer Motion `useInView` + digit rolling |
+| Ken Burns hero photography | **HIGH** | CSS-only, zero JS cost. Makes static images feel alive |
+| Staggered section reveals | **HIGH** | Framer Motion `staggerChildren`. Apply to service cards, team grid, testimonials |
+| Service card hover zoom | **MEDIUM** | `whileHover={{ scale: 1.05 }}` + shadow. Simple but polished |
+| Testimonial carousel with custom pagination | **MEDIUM** | Embla Carousel + Framer Motion for pagination animation |
+| Scroll parallax on hero/CTA | **MEDIUM** | `useScroll` + `useTransform`. Only 2 sections, not everywhere |
+| Rotating SVG hero icons | **LOW** | Nice-to-have. `AnimatePresence` cycling through icon set |
+| Gold/cream color palette | **HIGH** | The warm premium feel comes largely from the color choices |
+| Dark brown text (#4b4545) | **HIGH** | Softer than black, more premium. Small detail, big impact |
+| Purple CTA buttons (#42273b) | **MEDIUM** | Distinctive — stands out from typical blue/green CTAs |
+
+---
+
+#### Cross-Site Pattern Summary
+
+**Patterns ALL THREE sites share:**
+1. Always-visible phone number in header
+2. Testimonials prominently displayed (text, video, or carousel)
+3. Trust signals/awards/certifications section
+4. "How it works" or "Getting started" simplified process
+5. Free consultation/assessment as primary CTA
+6. Services categorized similarly: personal care, companion care, homemaking/specialized
+7. Target audience: adult children making care decisions for parents
+8. Caregiver quality and screening process emphasized
+
+**Motion spectrum across the three:**
+```
+Static ◄─────────────────────────────────────────────► Dynamic
+
+Adult Care Assistance          Griswold              TheKey
+(minimal motion,           (video testimonials,    (parallax, counters,
+ trust through content)     location carousel)      hover effects, SVG
+                                                    rotation, staggered
+                                                    reveals, Ken Burns)
+```
+
+**AgingWellCare target: Between Griswold and TheKey** — premium motion that adds polish without being overwhelming. Use TheKey's techniques selectively (stat counters, Ken Burns, staggered reveals) but keep Griswold's warmth and Adult Care Assistance's trust density.
+
+---
+
+#### Recommended Motion Budget for AgingWellCare
+
+To avoid over-animating (which can feel as generic as no animation):
+
+| Section | Animation | Duration | Trigger |
+|---------|-----------|----------|---------|
+| Hero background | Ken Burns zoom | 20s loop | Page load |
+| Hero content | Fade up + stagger | 0.6s total | Page load |
+| Trust bar logos | Fade in | 0.3s | In view |
+| Service cards | Staggered fade up | 0.8s total (0.1s stagger) | In view |
+| Why Choose Us items | Staggered slide in from left | 0.8s total | In view |
+| Stat counters | Odometer roll-up | 2s | In view (once) |
+| Testimonial carousel | Slide + fade | 0.4s per slide | Auto-play 5s |
+| How It Works steps | Sequential reveal along path | 1.2s total | In view |
+| CTA banner background | Subtle parallax scroll | Continuous | Scroll |
+| Service card hover | Scale 1.05x + shadow | 0.2s | Hover |
+| Page transitions | Fade | 0.2s | Navigation |
+
+**Total unique animations: 11.** Each serves a purpose (hierarchy, attention, delight). No animation is purely decorative.
+
+---
 
 ### Complete ECC Workflow for One Feature
 
