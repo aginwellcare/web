@@ -1,0 +1,34 @@
+# ============================================================================
+# AgingWellCare — Claude Code Plugin Install Commands
+# ============================================================================
+# Run these commands INSIDE Claude Code (start Claude Code with: claude)
+# ============================================================================
+
+# Step 1: Install Everything Claude Code (ECC) plugin
+# This gives you: frontend-design, design-system, frontend-patterns, and 180+ other skills
+/plugin marketplace add https://github.com/affaan-m/everything-claude-code
+/plugin install ecc@ecc
+
+# Step 2: Install UI/UX Pro Max skill
+# This gives you: 67 UI styles, 161 color palettes, 57 font pairings, industry-specific design rules
+/plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill
+/plugin install ui-ux-pro-max@ui-ux-pro-max-skill
+
+# Step 3: Verify both plugins are installed
+/skills list
+
+# You should see these skills available:
+# - frontend-design (from ECC) — design philosophy and anti-pattern detection
+# - design-system (from ECC) — generate/audit visual systems, AI slop detection
+# - frontend-patterns (from ECC) — React/Next.js best practices
+# - ui-ux-pro-max (from UI/UX Pro Max) — data-driven design system generator
+
+# ============================================================================
+# Step 4: Generate the design system (run this after project scaffolding)
+# ============================================================================
+
+# Generate a tailored design system for AgingWellCare:
+# /ui-ux-pro-max Generate a complete design system for "AgingWellCare" — a premium home care agency website. Industry: healthcare / home care / elder care. Target audience: adult children (40-65) making care decisions for aging parents. Design direction: Warm premium. Gold/cream warmth combined with community trust. NOT generic medical blue. NOT AI-slop purple gradients. Desired feel: Trustworthy, warm, professional, human, premium but approachable. Persist the design system to design-system/ directory.
+
+# Then refine with the frontend-design skill:
+# /frontend-design Review and refine the generated design system for AgingWellCare. Ensure we have intentional type hierarchy, strategic asymmetry, and no anti-patterns.
