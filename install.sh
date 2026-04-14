@@ -266,7 +266,18 @@ print_step "Installing Framer Motion, React Hook Form, Zod..."
 cd "$PROJECT_DIR"
 run_cmd pnpm add framer-motion react-hook-form @hookform/resolvers zod lucide-react clsx class-variance-authority
 
-print_step "All dependencies installed"
+print_step "Runtime dependencies installed"
+
+# ============================================================================
+print_header "Phase 2.3b — Install Testing Dependencies (for TDD phase)"
+# ============================================================================
+
+print_step "Installing Vitest, Testing Library, Playwright..."
+
+cd "$PROJECT_DIR"
+run_cmd pnpm add -D vitest @testing-library/react @testing-library/jest-dom @vitejs/plugin-react jsdom playwright @playwright/test
+
+print_step "Testing dependencies installed"
 
 # ============================================================================
 print_header "Phase 2.4 — Create Project Structure"
