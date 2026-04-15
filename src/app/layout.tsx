@@ -3,6 +3,7 @@ import { Playfair_Display, Inter } from "next/font/google"
 import { Header } from "@/components/shared/Header"
 import { Footer } from "@/components/shared/Footer"
 import { MotionProvider } from "@/components/shared/MotionProvider"
+import { TawkChat } from "@/components/shared/TawkChat"
 import { SITE_NAME } from "@/lib/constants"
 import "./globals.css"
 
@@ -57,6 +58,7 @@ export default function RootLayout({
           </main>
           <Footer />
         </MotionProvider>
+        <TawkChat />
       </body>
     </html>
   )
