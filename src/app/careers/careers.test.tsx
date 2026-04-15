@@ -27,11 +27,11 @@ describe("Careers Page", () => {
     expect(screen.getByText(/registered nurse/i)).toBeInTheDocument()
   })
 
-  it("has apply links", () => {
+  it("has apply buttons", () => {
     render(<CareersPage />)
-    const applyLinks = screen.getAllByRole("link").filter(
+    const applyButtons = screen.getAllByRole("button").filter(
       (el) => /apply/i.test(el.textContent || "")
     )
-    expect(applyLinks.length).toBeGreaterThanOrEqual(1)
+    expect(applyButtons.length).toBeGreaterThanOrEqual(1)
   })
 })

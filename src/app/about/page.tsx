@@ -1,5 +1,5 @@
 import { Heart, Users, Shield, Award } from "lucide-react"
-import { TEAM_MEMBERS } from "@/content/team"
+import teamData from "@/content/team.json"
 import { CTABanner } from "@/components/shared/CTABanner"
 
 const VALUES = [
@@ -12,7 +12,7 @@ const VALUES = [
 const TIMELINE = [
   { year: "2009", event: "Founded in Phoenix with a mission to provide compassionate home care" },
   { year: "2013", event: "Milestone: 500 families served across the greater Phoenix area" },
-  { year: "2018", event: "Expanded to specialized Alzheimer's and dementia care programs" },
+  { year: "2018", event: "Expanded to specialized Alzheimer&apos;s and dementia care programs" },
   { year: "2023", event: "Named Top Home Care Agency by Arizona Senior Living Magazine" },
 ]
 
@@ -29,7 +29,7 @@ export default function AboutPage() {
             commitment to personalized, compassionate care has never changed.
           </p>
 
-          <h2 className="mt-16 text-2xl font-semibold text-foreground">Our Mission & Values</h2>
+          <h2 className="mt-16 text-2xl font-semibold text-foreground">Our Mission &amp; Values</h2>
           <div className="mt-8 grid gap-6 sm:grid-cols-2">
             {VALUES.map((v) => (
               <div key={v.title} className="flex gap-4">
@@ -46,7 +46,7 @@ export default function AboutPage() {
 
           <h2 className="mt-16 text-2xl font-semibold text-foreground">Our Team</h2>
           <div className="mt-8 grid gap-6 sm:grid-cols-3">
-            {TEAM_MEMBERS.map((member) => (
+            {teamData.map((member) => (
               <div key={member.name} className="rounded-lg border border-border bg-card p-6 text-center">
                 <div className="mx-auto size-16 rounded-full bg-accent" />
                 <h3 className="mt-4 font-semibold text-foreground">{member.name}</h3>
@@ -66,7 +66,7 @@ export default function AboutPage() {
             ))}
           </div>
 
-          <h2 className="mt-16 text-2xl font-semibold text-foreground">Awards & Certifications</h2>
+          <h2 className="mt-16 text-2xl font-semibold text-foreground">Awards &amp; Certifications</h2>
           <div className="mt-6 flex flex-wrap gap-4">
             <span className="rounded-md border border-border px-4 py-2 text-sm text-muted-foreground">BBB Accredited Business — A+ Rating</span>
             <span className="rounded-md border border-border px-4 py-2 text-sm text-muted-foreground">Arizona Home Care Association Certified</span>

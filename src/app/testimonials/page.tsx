@@ -2,13 +2,13 @@
 
 import { useState } from "react"
 import { Star } from "lucide-react"
-import { TESTIMONIALS } from "@/content/testimonials"
+import testimonialsData from "@/content/testimonials.json"
 
 const FILTERS = ["All", "personal-care", "companion-care", "live-in-care"]
 
 export default function TestimonialsPage() {
   const [filter, setFilter] = useState("All")
-  const filtered = filter === "All" ? TESTIMONIALS : TESTIMONIALS.filter((t) => t.service === filter)
+  const filtered = filter === "All" ? testimonialsData : testimonialsData.filter((t) => t.service === filter)
 
   return (
     <section className="bg-background py-16 md:py-24">
@@ -32,7 +32,7 @@ export default function TestimonialsPage() {
             <div key={t.id} className="rounded-lg border border-border bg-card p-6">
               <div className="flex gap-0.5">
                 {Array.from({ length: t.rating }).map((_, i) => (
-                  <Star key={i} className="size-4 fill-secondary text-secondary" />
+                  <Star key={`star-${i}`} className="size-4 fill-secondary text-secondary" />
                 ))}
               </div>
               <blockquote className="mt-3 text-sm leading-relaxed text-foreground">&ldquo;{t.quote}&rdquo;</blockquote>

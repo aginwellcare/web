@@ -1,12 +1,26 @@
 import { render, screen } from "@testing-library/react"
-import { describe, it, expect } from "vitest"
+import { describe, it, expect, beforeEach } from "vitest"
 import { StatsCounter } from "./StatsCounter"
+
+// Mock IntersectionObserver for jsdom
+beforeEach(() => {
+  const mockObserver = vi.fn((callback: IntersectionObserverCallback) => {
+    callback(
+      [{ isIntersecting: true } as IntersectionObserverEntry],
+      {} as IntersectionObserver
+    )
+    return {
+      observe: vi.fn(),
+      disconnect: vi.fn(),
+      unobserve: vi.fn(),
+    }
+  })
+  vi.stubGlobal("IntersectionObserver", mockObserver)
+})
 
 describe("StatsCounter", () => {
   it("renders 4 stat items", () => {
     render(<StatsCounter />)
-    const section = document.querySelector("section")!
-    // Should have stat labels
     expect(screen.getByText(/years/i)).toBeInTheDocument()
     expect(screen.getByText(/families/i)).toBeInTheDocument()
     expect(screen.getByText(/satisfaction/i)).toBeInTheDocument()
@@ -16,7 +30,6 @@ describe("StatsCounter", () => {
   it("displays target numbers", () => {
     render(<StatsCounter />)
     const section = document.querySelector("section")!
-    // Should contain numeric values
     expect(section.textContent).toMatch(/\d+/)
   })
 

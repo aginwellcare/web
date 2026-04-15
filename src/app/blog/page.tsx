@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { BLOG_POSTS } from "@/content/posts"
+import postsData from "@/content/posts.json"
 
 export default function BlogPage() {
   return (
@@ -7,7 +7,7 @@ export default function BlogPage() {
       <div className="mx-auto max-w-7xl px-4">
         <h1 className="text-3xl font-bold text-foreground md:text-4xl">Blog</h1>
         <div className="mt-8 grid gap-6 sm:grid-cols-2">
-          {BLOG_POSTS.map((post) => (
+          {postsData.map((post) => (
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}

@@ -1,0 +1,27 @@
+[
+  {
+    "name": "General",
+    "questions": [
+      { "question": "What areas do you serve?", "answer": "We serve the greater Phoenix metropolitan area including Scottsdale, Tempe, Mesa, Chandler, Gilbert, Glendale, Peoria, Surprise, and Sun City." },
+      { "question": "Are your caregivers licensed?", "answer": "Yes, all caregivers are licensed, bonded, and insured. Every caregiver passes rigorous background checks and skills assessments." }
+    ]
+  },
+  {
+    "name": "Services",
+    "questions": [
+      { "question": "What services do you offer?", "answer": "We offer personal care, companion care, live-in care, respite care, and specialized care for conditions like Alzheimer's and dementia." }
+    ]
+  },
+  {
+    "name": "Pricing",
+    "questions": [
+      { "question": "How much does home care cost?", "answer": "Costs vary based on the level of care needed, hours per week, and specific services required. Contact us for a free assessment and personalized quote." }
+    ]
+  },
+  {
+    "name": "Getting Started",
+    "questions": [
+      { "question": "How do I get started?", "answer": "Call us at (555) 123-4567 or fill out our free care assessment form. A care coordinator will contact you within 24 hours to discuss your needs." }
+    ]
+  }
+]

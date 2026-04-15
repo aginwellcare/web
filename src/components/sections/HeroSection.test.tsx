@@ -9,6 +9,10 @@ vi.mock("next/link", () => ({
   ),
 }))
 
+vi.mock("next/image", () => ({
+  default: (props: Record<string, unknown>) => <img {...props} />,
+}))
+
 describe("HeroSection", () => {
   it("renders the main headline as h1", () => {
     render(<HeroSection />)
@@ -17,32 +21,30 @@ describe("HeroSection", () => {
     expect(h1.textContent!.length).toBeGreaterThan(10)
   })
 
-  it("renders a subheadline", () => {
+  it("renders a subheadline or supporting text", () => {
     render(<HeroSection />)
-    const hero = screen.getByRole("heading", { level: 1 }).parentElement!
-    // Should have more text than just the headline
-    expect(hero.textContent!.length).toBeGreaterThan(50)
+    const section = document.querySelector("section")!
+    expect(section.textContent!.length).toBeGreaterThan(50)
   })
 
-  it("shows Schedule Free Assessment CTA linking to /assessment", () => {
+  it("shows CTA linking to /assessment", () => {
     render(<HeroSection />)
-    const cta = screen.getByRole("link", { name: /schedule free assessment|free assessment/i })
+    const cta = screen.getByRole("link", { name: /get started|free assessment|schedule/i })
     expect(cta).toHaveAttribute("href", "/assessment")
   })
 
-  it("shows phone number CTA as tel: link", () => {
+  it("shows phone number", () => {
     render(<HeroSection />)
-    const phoneLink = screen.getByRole("link", { name: new RegExp(PHONE_NUMBER.replace(/[()]/g, "\\$&")) })
-    expect(phoneLink).toHaveAttribute("href", PHONE_HREF)
+    expect(screen.getByText(new RegExp(PHONE_NUMBER.replace(/[()]/g, "\\$&")))).toBeInTheDocument()
   })
 
-  it("CTA buttons have minimum 44px touch targets", () => {
+  it("CTA button has minimum 44px touch target", () => {
     render(<HeroSection />)
-    const cta = screen.getByRole("link", { name: /schedule free assessment|free assessment/i })
+    const cta = screen.getByRole("link", { name: /get started|free assessment|schedule/i })
     const className = cta.className
     expect(
       className.includes("h-11") || className.includes("h-12") ||
-      className.includes("min-h-[44px]") || className.includes("py-3")
+      className.includes("min-h-[44px]")
     ).toBe(true)
   })
 })

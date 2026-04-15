@@ -2,26 +2,10 @@
 
 import { useState } from "react"
 import { useForm, FormProvider } from "react-hook-form"
-import { z } from "zod/v3"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { assessmentSchema, type AssessmentFormValues } from "@/lib/schemas/assessment"
 
-const assessmentSchema = z.object({
-  careRecipientName: z.string().min(1, "Name is required"),
-  age: z.string().min(1, "Age is required").refine((v) => { const n = Number(v); return Number.isInteger(n) && n >= 0 && n <= 120 }, "Please enter a valid age (0-120)"),
-  relationship: z.string().min(1, "Relationship is required"),
-  careNeeds: z.array(z.string()).min(1, "Select at least one care need"),
-  frequency: z.string().min(1, "Frequency is required"),
-  preferredTimes: z.string().optional(),
-  startDate: z.string().optional(),
-  contactName: z.string().min(1, "Contact name is required"),
-  contactPhone: z.string().min(1, "Phone is required"),
-  contactEmail: z.string().email("Valid email required"),
-  contactMethod: z.string().min(1, "Preferred contact method is required"),
-})
-
-type AssessmentValues = z.infer<typeof assessmentSchema>
-
-const STEP_FIELDS: Record<number, (keyof AssessmentValues)[]> = {
+const STEP_FIELDS: Record<number, (keyof AssessmentFormValues)[]> = {
   0: ["careRecipientName", "age", "relationship"],
   1: ["careNeeds"],
   2: ["frequency"],
@@ -35,7 +19,7 @@ const CARE_NEED_OPTIONS = [
 
 export function AssessmentForm() {
   const [step, setStep] = useState(0)
-  const methods = useForm<AssessmentValues>({
+  const methods = useForm<AssessmentFormValues>({
     resolver: zodResolver(assessmentSchema),
     defaultValues: {
       careNeeds: [],
@@ -47,13 +31,14 @@ export function AssessmentForm() {
       contactPhone: "",
       contactEmail: "",
       contactMethod: "",
+      _honeypot: "",
     },
   })
 
   const { register, trigger, handleSubmit, watch, formState: { errors } } = methods
 
-  const totalSteps = 5
-  const isReview = step === 4
+  const totalSteps = Object.keys(STEP_FIELDS).length + 1
+  const isReview = step === totalSteps - 1
 
   const handleNext = async () => {
     if (isReview) return
@@ -64,7 +49,7 @@ export function AssessmentForm() {
 
   const handlePrev = () => setStep((s) => Math.max(0, s - 1))
 
-  const onSubmit = async (_data: AssessmentValues) => {
+  const onSubmit = async (_data: AssessmentFormValues) => {
     // TODO: wire up server action for assessment submission
   }
 
@@ -73,6 +58,16 @@ export function AssessmentForm() {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)} aria-label="Care assessment form">
+        {/* Honeypot */}
+        <input
+          type="text"
+          {...register("_honeypot")}
+          className="hidden"
+          aria-hidden="true"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+
         <p className="mb-6 text-sm font-medium text-muted-foreground">
           Step {step + 1} of {totalSteps}
         </p>

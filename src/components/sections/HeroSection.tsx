@@ -1,44 +1,61 @@
-"use client"
-
+import Image from "next/image"
 import Link from "next/link"
-import { Phone } from "lucide-react"
-import { motion } from "framer-motion"
 import { PHONE_NUMBER, PHONE_HREF } from "@/lib/constants"
 
 export function HeroSection() {
   return (
-    <section className="relative flex min-h-[80vh] items-center bg-background py-20">
-      <div className="mx-auto max-w-7xl px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="max-w-2xl"
+    <section className="relative flex min-h-[90vh] items-end overflow-hidden pb-20">
+      {/* Background — video if available, image fallback with Ken Burns */}
+      <div className="absolute inset-0">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/images/hero.avif"
+          className="absolute inset-0 size-full object-cover"
         >
-          <h1 className="text-3xl font-bold leading-tight text-foreground md:text-5xl">
+          {/* Uncomment when video is ready:
+          <source src="/videos/hero.mp4" type="video/mp4" />
+          */}
+        </video>
+        {/* Image fallback — shows when video has no source */}
+        <div className="absolute inset-0 animate-ken-burns">
+          <Image
+            src="/images/hero.avif"
+            alt="Caregiver with elderly person in a warm home setting"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+        </div>
+      </div>
+
+      {/* Bottom gradient for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+
+      {/* Minimal content */}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 md:px-12">
+        <div className="animate-fade-up">
+          <h1 className="max-w-3xl text-3xl font-bold leading-tight text-white md:text-5xl lg:text-6xl">
             Compassionate Home Care That Feels Like Family
           </h1>
-          <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-            Your loved ones deserve care that goes beyond the basics. Our experienced,
-            vetted caregivers provide personalized support so your family can focus on
-            what matters most — being together.
-          </p>
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+          <div className="mt-6 flex items-center gap-6">
             <Link
               href="/assessment"
-              className="h-11 inline-flex items-center justify-center rounded-md bg-secondary px-6 text-sm font-semibold text-secondary-foreground hover:bg-secondary/90"
+              className="h-12 inline-flex items-center justify-center rounded-md bg-secondary px-8 text-base font-semibold text-secondary-foreground shadow-lg hover:bg-secondary/90"
             >
-              Schedule Free Assessment
+              Get Started
             </Link>
             <a
               href={PHONE_HREF}
-              className="h-11 inline-flex items-center justify-center gap-2 rounded-md border-2 border-primary px-6 text-sm font-semibold text-primary hover:bg-primary/10"
+              className="text-base font-medium text-white/90 hover:text-white"
             >
-              <Phone className="size-4" />
-              Call {PHONE_NUMBER}
+              or call {PHONE_NUMBER}
             </a>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

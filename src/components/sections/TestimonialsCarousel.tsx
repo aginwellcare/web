@@ -1,16 +1,21 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useCallback } from "react"
 import { Star, ChevronLeft, ChevronRight } from "lucide-react"
-import { TESTIMONIALS } from "@/content/testimonials"
+import testimonialsData from "@/content/testimonials.json"
 
 export function TestimonialsCarousel() {
   const [current, setCurrent] = useState(0)
 
-  const prev = () => setCurrent((c) => (c === 0 ? TESTIMONIALS.length - 1 : c - 1))
-  const next = () => setCurrent((c) => (c === TESTIMONIALS.length - 1 ? 0 : c + 1))
+  const prev = useCallback(() => {
+    setCurrent((c) => (c === 0 ? testimonialsData.length - 1 : c - 1))
+  }, [])
 
-  const testimonial = TESTIMONIALS[current]
+  const next = useCallback(() => {
+    setCurrent((c) => (c === testimonialsData.length - 1 ? 0 : c + 1))
+  }, [])
+
+  const testimonial = testimonialsData[current]
 
   return (
     <section className="bg-cream-dark py-16 md:py-24">
@@ -21,7 +26,7 @@ export function TestimonialsCarousel() {
         <div className="mt-10" aria-live="polite" aria-atomic="true">
           <div className="flex items-center justify-center gap-1">
             {Array.from({ length: testimonial.rating }).map((_, i) => (
-              <Star key={i} className="size-5 fill-secondary text-secondary" />
+              <Star key={`star-${i}`} className="size-5 fill-secondary text-secondary" />
             ))}
           </div>
           <blockquote className="mt-4 text-lg italic leading-relaxed text-foreground">
@@ -32,19 +37,21 @@ export function TestimonialsCarousel() {
         </div>
         <div className="mt-8 flex items-center justify-center gap-4">
           <button
+            type="button"
             onClick={prev}
             aria-label="Previous testimonial"
-            className="inline-flex size-10 items-center justify-center rounded-full border border-border hover:bg-accent"
+            className="inline-flex size-10 cursor-pointer items-center justify-center rounded-full border border-border hover:bg-accent"
           >
             <ChevronLeft className="size-5" />
           </button>
           <span className="text-sm text-muted-foreground">
-            {current + 1} / {TESTIMONIALS.length}
+            {current + 1} / {testimonialsData.length}
           </span>
           <button
+            type="button"
             onClick={next}
             aria-label="Next testimonial"
-            className="inline-flex size-10 items-center justify-center rounded-full border border-border hover:bg-accent"
+            className="inline-flex size-10 cursor-pointer items-center justify-center rounded-full border border-border hover:bg-accent"
           >
             <ChevronRight className="size-5" />
           </button>

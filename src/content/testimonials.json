@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "quote": "AgingWellCare changed our lives. The caregiver they matched with my mother is like a member of our family now.",
+    "name": "Sarah M.",
+    "relationship": "Daughter of client",
+    "rating": 5,
+    "service": "personal-care"
+  },
+  {
+    "id": "2",
+    "quote": "Compassionate and professional caregivers. My father looks forward to his visits every day.",
+    "name": "James R.",
+    "relationship": "Son of client",
+    "rating": 5,
+    "service": "companion-care"
+  },
+  {
+    "id": "3",
+    "quote": "We finally have peace of mind knowing Mom is safe and happy at home with her live-in caregiver.",
+    "name": "Linda K.",
+    "relationship": "Daughter of client",
+    "rating": 5,
+    "service": "live-in-care"
+  }
+]

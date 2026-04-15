@@ -1,5 +1,6 @@
 import Link from "next/link"
-import { Phone, Mail, MapPin, Clock, ExternalLink } from "lucide-react"
+import { Phone, MapPin, Clock, ExternalLink } from "lucide-react"
+import { EmailLink } from "@/components/shared/EmailLink"
 import {
   SITE_NAME,
   PHONE_NUMBER,
@@ -100,13 +101,7 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a
-                  href={`mailto:${EMAIL}`}
-                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary"
-                >
-                  <Mail className="size-4 shrink-0" />
-                  {EMAIL}
-                </a>
+                <EmailLink user="info" domain="agingwellcare.com" />
               </li>
               <li className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Clock className="size-4 shrink-0" />

@@ -1,7 +1,6 @@
 "use client"
 
 import { useRef, useState, useEffect } from "react"
-import { useInView } from "framer-motion"
 
 const STATS = [
   { target: 15, suffix: "+", label: "Years of Service" },
@@ -12,24 +11,36 @@ const STATS = [
 
 function Counter({ target, suffix }: { target: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once: true, amount: 0.5 })
   const [count, setCount] = useState(0)
+  const [hasAnimated, setHasAnimated] = useState(false)
 
   useEffect(() => {
-    if (!isInView) return
-    let start = 0
-    const step = target / 60
-    const id = setInterval(() => {
-      start += step
-      if (start >= target) {
-        setCount(target)
-        clearInterval(id)
-      } else {
-        setCount(Math.floor(start))
-      }
-    }, 16)
-    return () => clearInterval(id)
-  }, [isInView, target])
+    const el = ref.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          setHasAnimated(true)
+          let start = 0
+          const step = Math.max(target / 60, 1)
+          const id = setInterval(() => {
+            start += step
+            if (start >= target) {
+              setCount(target)
+              clearInterval(id)
+            } else {
+              setCount(Math.floor(start))
+            }
+          }, 16)
+        }
+      },
+      { threshold: 0.3 }
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [target, hasAnimated])
 
   return (
     <span ref={ref} className="text-3xl font-bold text-secondary md:text-4xl">
