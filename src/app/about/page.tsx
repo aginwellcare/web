@@ -1,4 +1,3 @@
-import Link from "next/link"
 import { Heart, Users, Shield, Award } from "lucide-react"
 import { TEAM_MEMBERS } from "@/content/team"
 import { CTABanner } from "@/components/shared/CTABanner"
@@ -26,7 +25,7 @@ export default function AboutPage() {
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
             AgingWellCare was founded on a simple belief: every person deserves to age with dignity,
             comfort, and joy in the place they call home. What started as a small team of caregivers
-            in Phoenix has grown into one of Arizona's most trusted home care agencies — but our
+            in Phoenix has grown into one of Arizona&apos;s most trusted home care agencies — but our
             commitment to personalized, compassionate care has never changed.
           </p>
 

@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 const contactSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().min(1, "Email is required").email("Please enter a valid email address"),
-  phone: z.string().min(1, "Phone number is required").min(10, "Phone number must be at least 10 digits"),
+  phone: z.string().min(1, "Phone number is required").regex(/^\+?[\d\s\-()]{10,}$/, "Please enter a valid phone number"),
   service: z.string().min(1, "Please select a service"),
   message: z.string().optional(),
 })
@@ -23,9 +23,8 @@ export function ContactForm() {
     resolver: zodResolver(contactSchema),
   })
 
-  const onSubmit = async (data: ContactFormValues) => {
-    // TODO: server action
-    console.log(data)
+  const onSubmit = async (_data: ContactFormValues) => {
+    // TODO: wire up server action for form submission
   }
 
   return (

@@ -31,7 +31,7 @@ export function ServicesPreview() {
           Our Care Services
         </h2>
         <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">
-          Every family is different. We offer a range of services tailored to your loved one's unique needs.
+          Every family is different. We offer a range of services tailored to your loved one&apos;s unique needs.
         </p>
         <motion.div
           variants={container}

@@ -22,7 +22,7 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
           <div className="prose mt-8 max-w-none text-foreground">
             <p className="text-lg leading-relaxed">{post.excerpt}</p>
             <p>Caring for an aging parent is one of the most important and challenging journeys a family can face. This guide covers practical strategies, emotional support, and resources to help you navigate this transition with confidence and compassion.</p>
-            <p>From understanding your loved one's evolving needs to finding the right level of professional support, every family's path is unique. The key is starting the conversation early and building a care plan that respects everyone's wishes.</p>
+            <p>From understanding your loved one&apos;s evolving needs to finding the right level of professional support, every family&apos;s path is unique. The key is starting the conversation early and building a care plan that respects everyone&apos;s wishes.</p>
           </div>
           <div className="mt-10 border-t border-border pt-6">
             <Link href="/blog" className="text-sm font-medium text-primary hover:underline">← Back to Blog</Link>

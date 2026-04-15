@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 
 const assessmentSchema = z.object({
   careRecipientName: z.string().min(1, "Name is required"),
-  age: z.string().min(1, "Age is required"),
+  age: z.string().min(1, "Age is required").refine((v) => { const n = Number(v); return Number.isInteger(n) && n >= 0 && n <= 120 }, "Please enter a valid age (0-120)"),
   relationship: z.string().min(1, "Relationship is required"),
   careNeeds: z.array(z.string()).min(1, "Select at least one care need"),
   frequency: z.string().min(1, "Frequency is required"),
@@ -64,8 +64,8 @@ export function AssessmentForm() {
 
   const handlePrev = () => setStep((s) => Math.max(0, s - 1))
 
-  const onSubmit = async (data: AssessmentValues) => {
-    console.log("Assessment submitted:", data)
+  const onSubmit = async (_data: AssessmentValues) => {
+    // TODO: wire up server action for assessment submission
   }
 
   const values = watch()
@@ -146,19 +146,22 @@ export function AssessmentForm() {
             </div>
             <div>
               <label htmlFor="contactPhone" className="block text-sm font-medium text-foreground">Phone</label>
-              <input id="contactPhone" type="tel" {...register("contactPhone")} className="mt-1 w-full rounded-md border border-border px-4 py-3 text-base" />
+              <input id="contactPhone" type="tel" {...register("contactPhone")} aria-invalid={!!errors.contactPhone} aria-describedby={errors.contactPhone ? "contactPhone-error" : undefined} className="mt-1 w-full rounded-md border border-border px-4 py-3 text-base" />
+              {errors.contactPhone && <p id="contactPhone-error" role="alert" className="mt-1 text-sm text-destructive">{errors.contactPhone.message}</p>}
             </div>
             <div>
               <label htmlFor="contactEmail" className="block text-sm font-medium text-foreground">Email</label>
-              <input id="contactEmail" type="email" {...register("contactEmail")} className="mt-1 w-full rounded-md border border-border px-4 py-3 text-base" />
+              <input id="contactEmail" type="email" {...register("contactEmail")} aria-invalid={!!errors.contactEmail} aria-describedby={errors.contactEmail ? "contactEmail-error" : undefined} className="mt-1 w-full rounded-md border border-border px-4 py-3 text-base" />
+              {errors.contactEmail && <p id="contactEmail-error" role="alert" className="mt-1 text-sm text-destructive">{errors.contactEmail.message}</p>}
             </div>
             <div>
               <label htmlFor="contactMethod" className="block text-sm font-medium text-foreground">Preferred Contact Method</label>
-              <select id="contactMethod" {...register("contactMethod")} className="mt-1 w-full rounded-md border border-border px-4 py-3 text-base">
+              <select id="contactMethod" {...register("contactMethod")} aria-invalid={!!errors.contactMethod} aria-describedby={errors.contactMethod ? "contactMethod-error" : undefined} className="mt-1 w-full rounded-md border border-border px-4 py-3 text-base">
                 <option value="">Select method</option>
                 <option value="phone">Phone</option>
                 <option value="email">Email</option>
               </select>
+              {errors.contactMethod && <p id="contactMethod-error" role="alert" className="mt-1 text-sm text-destructive">{errors.contactMethod.message}</p>}
             </div>
           </div>
         )}

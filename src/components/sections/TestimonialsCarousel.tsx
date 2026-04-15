@@ -18,7 +18,7 @@ export function TestimonialsCarousel() {
         <h2 className="text-2xl font-semibold text-foreground md:text-3xl">
           What Families Say
         </h2>
-        <div className="mt-10">
+        <div className="mt-10" aria-live="polite" aria-atomic="true">
           <div className="flex items-center justify-center gap-1">
             {Array.from({ length: testimonial.rating }).map((_, i) => (
               <Star key={i} className="size-5 fill-secondary text-secondary" />

@@ -82,7 +82,7 @@ describe("Header", () => {
   describe("Mobile navigation", () => {
     it("shows hamburger menu button on mobile viewport", () => {
       render(<Header />)
-      const menuButton = screen.getByRole("button", { name: /menu|navigation/i })
+      const menuButton = screen.getByRole("button", { name: /open navigation/i })
       expect(menuButton).toBeInTheDocument()
     })
 
@@ -90,7 +90,7 @@ describe("Header", () => {
       const user = userEvent.setup()
       render(<Header />)
 
-      const menuButton = screen.getByRole("button", { name: /menu|navigation/i })
+      const menuButton = screen.getByRole("button", { name: /open navigation/i })
       await user.click(menuButton)
 
       const dialog = screen.getByRole("dialog")
@@ -105,7 +105,7 @@ describe("Header", () => {
       const user = userEvent.setup()
       render(<Header />)
 
-      const menuButton = screen.getByRole("button", { name: /menu|navigation/i })
+      const menuButton = screen.getByRole("button", { name: /open navigation/i })
       await user.click(menuButton)
 
       const dialog = screen.getByRole("dialog")

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { Menu, Phone, ChevronDown } from "lucide-react"
 import {
@@ -15,6 +15,18 @@ import { SITE_NAME, PHONE_NUMBER, PHONE_HREF, NAV_LINKS, SERVICES } from "@/lib/
 
 export function Header() {
   const [servicesOpen, setServicesOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!servicesOpen) return
+    const handleClick = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setServicesOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClick)
+    return () => document.removeEventListener("mousedown", handleClick)
+  }, [servicesOpen])
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -27,12 +39,12 @@ export function Header() {
         {/* Desktop navigation */}
         <div className="hidden items-center gap-1 md:flex">
           {/* Services with dropdown */}
-          <div className="relative">
+          <div className="relative" ref={dropdownRef}>
             <Link href="/services" className="inline-flex h-9 items-center px-3 text-sm font-medium text-foreground hover:text-primary">
               Services
             </Link>
             <button
-              aria-label="Services"
+              aria-label="Toggle services submenu"
               aria-expanded={servicesOpen}
               onClick={() => setServicesOpen(!servicesOpen)}
               className="inline-flex h-9 items-center px-1 text-sm text-foreground hover:text-primary"
