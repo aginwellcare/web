@@ -18,10 +18,10 @@ const nextConfig: NextConfig = {
                   key: "Content-Security-Policy",
                   value: [
                     "default-src 'self'",
-                    "script-src 'self' 'unsafe-inline' https://embed.tawk.to",
-                    "style-src 'self' 'unsafe-inline'",
+                    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.tawk.to",
+                    "style-src 'self' 'unsafe-inline' https://*.tawk.to",
                     "img-src 'self' data: https:",
-                    "font-src 'self' https://fonts.gstatic.com",
+                    "font-src 'self' https://fonts.gstatic.com https://*.tawk.to",
                     "connect-src 'self' https://*.tawk.to wss://*.tawk.to",
                     "media-src 'self'",
                     "frame-src https://*.tawk.to",
