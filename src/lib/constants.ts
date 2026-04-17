@@ -1,6 +1,6 @@
 export const SITE_NAME = "AgingWellCare"
-export const PHONE_NUMBER = "(555) 123-4567"
-export const PHONE_HREF = "tel:+15551234567"
+export const PHONE_NUMBER = "(480) 582-9898"
+export const PHONE_HREF = "tel:+14805829898"
 export const EMAIL = "info@agingwellcare.com"
 
 export const NAV_LINKS = [
