@@ -1,0 +1,16 @@
+{
+  "name": "AgingWellCare",
+  "phone": "(480) 582-9898",
+  "phoneHref": "tel:+14805829898",
+  "email": "info@agingwellcare.com",
+  "emailUser": "info",
+  "emailDomain": "agingwellcare.com",
+  "domain": "agingwellcare.com",
+  "address": "39903 N Wisdom Way, Anthem, AZ 85086",
+  "hours": "Monday - Friday: 8:00 AM - 6:00 PM",
+  "social": {
+    "facebook": "https://facebook.com/agingwellcare",
+    "instagram": "https://instagram.com/agingwellcare",
+    "linkedin": "https://linkedin.com/company/agingwellcare"
+  }
+}

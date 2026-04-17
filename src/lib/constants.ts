@@ -1,7 +1,9 @@
-export const SITE_NAME = "AgingWellCare"
-export const PHONE_NUMBER = "(480) 582-9898"
-export const PHONE_HREF = "tel:+14805829898"
-export const EMAIL = "info@agingwellcare.com"
+import company from "@/content/company.json"
+
+export const SITE_NAME = company.name
+export const PHONE_NUMBER = company.phone
+export const PHONE_HREF = company.phoneHref
+export const EMAIL = company.email
 
 export const NAV_LINKS = [
   { label: "Services", href: "/services", children: [
@@ -22,16 +24,19 @@ export const NAV_LINKS = [
 export const SERVICES = NAV_LINKS[0].children
 
 export const SOCIAL_LINKS = [
-  { label: "Facebook", href: "https://facebook.com/agingwellcare", icon: "facebook" },
-  { label: "Instagram", href: "https://instagram.com/agingwellcare", icon: "instagram" },
-  { label: "LinkedIn", href: "https://linkedin.com/company/agingwellcare", icon: "linkedin" },
+  { label: "Facebook", href: company.social.facebook, icon: "facebook" },
+  { label: "Instagram", href: company.social.instagram, icon: "instagram" },
+  { label: "LinkedIn", href: company.social.linkedin, icon: "linkedin" },
 ] as const
 
 export const COMPANY_INFO = {
-  name: SITE_NAME,
-  address: "123 Care Street, Suite 100, Phoenix, AZ 85001",
-  phone: PHONE_NUMBER,
-  phoneHref: PHONE_HREF,
-  email: EMAIL,
-  hours: "Monday - Friday: 8:00 AM - 6:00 PM",
+  name: company.name,
+  address: company.address,
+  phone: company.phone,
+  phoneHref: company.phoneHref,
+  email: company.email,
+  domain: company.domain,
+  emailUser: company.emailUser,
+  emailDomain: company.emailDomain,
+  hours: company.hours,
 } as const

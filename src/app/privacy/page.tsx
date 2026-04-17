@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { SITE_NAME, PHONE_NUMBER, PHONE_HREF } from "@/lib/constants"
+import { SITE_NAME, PHONE_NUMBER, PHONE_HREF, COMPANY_INFO } from "@/lib/constants"
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -18,7 +18,7 @@ export default function PrivacyPolicyPage() {
               {SITE_NAME} (&ldquo;Company,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) is committed to protecting
               the privacy and security of the personal information of our clients, their families, caregivers, and visitors
               to our website. This Privacy Policy describes how we collect, use, disclose, and safeguard your information
-              when you visit our website at agingwellcare.com (the &ldquo;Site&rdquo;), use our services, or otherwise
+              when you visit our website at {COMPANY_INFO.domain} (the &ldquo;Site&rdquo;), use our services, or otherwise
               interact with us.
             </p>
           </div>
@@ -172,9 +172,9 @@ export default function PrivacyPolicyPage() {
             </p>
             <div className="mt-3 rounded-lg border border-border bg-card p-4">
               <p className="font-semibold text-foreground">{SITE_NAME}</p>
-              <p>123 Care Street, Suite 100, Phoenix, AZ 85001</p>
+              <p>{COMPANY_INFO.address}</p>
               <p>Phone: <a href={PHONE_HREF} className="text-primary hover:underline">{PHONE_NUMBER}</a></p>
-              <p>Email: info@agingwellcare.com</p>
+              <p>Email: {COMPANY_INFO.email}</p>
             </div>
           </div>
         </div>
