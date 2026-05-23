@@ -28,6 +28,11 @@ export const metadata: Metadata = {
   },
   description:
     "Professional, compassionate home care services for your aging loved ones. Personal care, companion care, live-in care, and more in the greater Phoenix area.",
+  icons: {
+    icon: "/images/logo-transparent.png",
+    shortcut: "/images/logo-transparent.png",
+    apple: "/images/logo-transparent.png",
+  },
   openGraph: {
     type: "website",
     siteName: SITE_NAME,

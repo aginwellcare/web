@@ -4,6 +4,7 @@ import { PHONE_NUMBER, PHONE_HREF } from "@/lib/constants"
 const SERVICE_AREAS = [
   "Phoenix", "Scottsdale", "Tempe", "Mesa", "Chandler",
   "Gilbert", "Glendale", "Peoria", "Surprise", "Sun City",
+  "Anthem", "Wickenburg", "Cave Creek", "Carefree", "Sun City West",
 ]
 
 export default function LocationsPage() {

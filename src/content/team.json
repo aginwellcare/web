@@ -1,5 +1,20 @@
 [
-  { "name": "Dr. Sarah Johnson", "role": "Founder & CEO", "bio": "20+ years in elder care." },
-  { "name": "Michael Chen", "role": "Director of Care Services", "bio": "Registered nurse with 15 years experience." },
-  { "name": "Emily Rodriguez", "role": "Client Relations Manager", "bio": "Dedicated to matching families with the right caregivers." }
+  {
+    "name": "Natasha Rreshka, CNA, CPT",
+    "role": "Owner",
+    "bio": "As the owner of Aging Well Care, Natasha brings years of hands-on experience as a Certified Nursing Assistant and Certified Phlebotomy Technician. Her passion is simple: ensuring care that is reliable, compassionate, and truly centered on dignity and independence.",
+    "image": "/images/team/natasha-rreshka.png"
+  },
+  {
+    "name": "Margaret Whitfield, RN",
+    "role": "Director of Operations",
+    "bio": "Margaret leads day-to-day operations with 18 years of nursing leadership across home health and assisted living. She oversees caregiver training, scheduling, and quality assurance to keep care consistent in every home we serve.",
+    "image": null
+  },
+  {
+    "name": "Daniela Ortiz",
+    "role": "Care Coordinator",
+    "bio": "Daniela is the first point of contact for new families and the bridge between clients and caregivers. With a background in social work and senior advocacy, she builds personalized care plans that fit each family's routine and goals.",
+    "image": null
+  }
 ]

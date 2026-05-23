@@ -88,6 +88,7 @@ export function AssessmentForm() {
               <label htmlFor="relationship" className="block text-sm font-medium text-foreground">Relationship</label>
               <select id="relationship" {...register("relationship")} className="mt-1 w-full rounded-md border border-border px-4 py-3 text-base">
                 <option value="">Select relationship</option>
+                <option value="self">Self</option>
                 <option value="parent">Parent</option>
                 <option value="spouse">Spouse</option>
                 <option value="other">Other</option>

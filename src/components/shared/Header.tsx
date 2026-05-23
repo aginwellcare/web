@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Menu, Phone, ChevronDown } from "lucide-react"
 import {
   Sheet,
@@ -32,8 +33,16 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4" aria-label="Main">
         {/* Logo */}
-        <Link href="/" className="text-xl font-bold text-primary">
-          {SITE_NAME}
+        <Link href="/" className="flex items-center gap-2" aria-label={SITE_NAME}>
+          <Image
+            src="/images/logo-transparent.png"
+            alt={SITE_NAME}
+            width={48}
+            height={48}
+            priority
+            className="size-12"
+          />
+          <span className="text-lg font-bold text-primary">{SITE_NAME}</span>
         </Link>
 
         {/* Desktop navigation */}

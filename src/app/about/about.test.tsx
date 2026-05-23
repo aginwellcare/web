@@ -27,18 +27,18 @@ describe("About Page", () => {
 
   it("shows team members with names and roles", () => {
     render(<AboutPage />)
-    expect(screen.getByText(/Sarah Johnson/i)).toBeInTheDocument()
-    expect(screen.getByText(/Michael Chen/i)).toBeInTheDocument()
+    expect(screen.getByText(/Natasha Rreshka/i)).toBeInTheDocument()
+    expect(screen.getByText(/Margaret Whitfield/i)).toBeInTheDocument()
   })
 
-  it("shows company timeline or milestones", () => {
+  it("shows our promise section", () => {
     render(<AboutPage />)
-    expect(screen.getByRole("heading", { name: /timeline/i })).toBeInTheDocument()
+    expect(screen.getByRole("heading", { name: /promise/i })).toBeInTheDocument()
   })
 
-  it("shows awards or certifications section", () => {
+  it("shows locally owned section", () => {
     render(<AboutPage />)
-    expect(screen.getByRole("heading", { name: /award/i })).toBeInTheDocument()
+    expect(screen.getByRole("heading", { name: /locally owned/i })).toBeInTheDocument()
   })
 
   it("shows CTA at bottom", () => {
